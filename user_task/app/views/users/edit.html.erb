@@ -1,0 +1,8 @@
+<h1>This is the new page</h1>
+
+<%= form_for @user do |f| %>
+	<p>First Name: <%= f.text_field :first_name %> </p>
+	<p>Last Name: <%= f.text_field :last_name %> </p>
+	<p>Phone Number: <%= f.text_field :phone_number %> </p>
+  <p><%= f.submit "Save User Changes" %></p>
+<% end %>
