@@ -1,0 +1,13 @@
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h2>Thanks for signing up, <%= @user.name %>!</h2>
+    <p>Your Password is:<%= @user.password %> </p>
+    <p>Thanks for joining and have a great day! Now please change the password </p>
+
+    <p><%= link_to 'Log In',new_user_session_url(@resource, confirmation_token: @token) %></p>
+
+  </body>
+</html>
