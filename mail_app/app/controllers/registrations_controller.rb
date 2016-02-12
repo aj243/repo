@@ -1,9 +1,9 @@
- class RegistrationsController < Devise::RegistrationsController
+class RegistrationsController < Devise::RegistrationsController
 	require 'securerandom'
 
 	def create
 		user = User.new(user_params)
-		password = SecureRandom.urlsafe_base64(9)
+		password = SecureRandom.urlsafe_base64(10)
 		user.password = user.password_confirmation = password
 		p password
 		user.save

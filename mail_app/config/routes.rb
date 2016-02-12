@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
-  devise_for :users, controllers: { registrations: 'registrations', sessions: 'sessions' }
+  devise_for :users, controllers: { registrations: 'registrations'}
   
+  # resource :passwords
 
   root to: "pages#index"
 
