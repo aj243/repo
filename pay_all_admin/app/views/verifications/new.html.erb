@@ -1,0 +1,19 @@
+<div class="mainContent">
+  <div class="grid">
+    <h1 class="largeHeader">Enter OTP</h1>
+    <div class="col_1">
+
+      <%= form_for(@user, url: verify_user_verifications_path(@user), html: { method: 'put'} ) do |f| %>
+        <%= devise_error_messages! %>
+
+        <div class="field">
+          <%= f.label :verification_code %><br />
+          <%= f.text_field :verification_code, autofocus: true, value: nil %>
+        </div>
+
+        <%= f.submit "Submit", class: 'btn btn-primary' %>
+
+      <% end %>
+    </div>
+  </div>
+</div>
