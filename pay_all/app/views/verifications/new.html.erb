@@ -1,5 +1,5 @@
-<div class="mainContent">
-  <div class="grid">
+<div class="container-fluid">
+  <div class="row">
     <h1 class="largeHeader">Enter OTP</h1>
     <div class="col_1">
 
@@ -8,19 +8,12 @@
 
         <div class="field">
           <%= f.label :verification_code %><br />
-          <%= f.text_field :verification_code, autofocus: true, value: nil, class: 'form-control' %>
+          <%= f.text_field :verification_code, autofocus: true, value: nil %>
         </div>
 
-        <%= f.submit "Submit", class: 'btn btn-primary' %><br/>
+        <%= f.submit "Submit", class: 'btn btn-primary' %>
 
       <% end %>
-
-      <%= form_for(@user, url: user_verifications_path(@user), html: { method: 'put'} ) do |f| %>
-
-        <%= f.submit "Regenrate OTP", class: 'btn btn-primary' %>
-
-      <% end %>
-
     </div>
   </div>
 </div>

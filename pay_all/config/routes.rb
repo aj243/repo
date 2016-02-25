@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
 
 devise_for :users, controllers: { passwords: 'users/passwords', confirmations: 'users/confirmations',
-                                  registrations: 'users/registrations'}
+                                    registrations: 'users/registrations'}
 
     devise_scope :user do
       get 'signup', to: 'users/registrations#new'
@@ -14,10 +14,18 @@ devise_for :users, controllers: { passwords: 'users/passwords', confirmations: '
   
   root to: 'pages#index'
 
+  get 'users', to: 'users#index'
+
   resources :users do
     resources :verifications, only: [:new, :create] do
       put :verify, on: :collection
-      put :create, on: :collection
+    end
+  end
+
+  
+  resources :users do
+    member do
+      put 'verified_by_admin', to: 'users#verified_by_admin'
     end
   end
 

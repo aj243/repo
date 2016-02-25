@@ -1,6 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_filter :configure_sign_up_params, only: [:create]
-  before_action :check_verify, only:[:edit]
+  before_action :configure_sign_up_params, only: [:create]
+  before_action :check_verify, only: [:edit]
 
 # before_filter :configure_account_update_params, only: [:update]
 
@@ -20,12 +20,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     else
       render 'new'
     end
-  end
-
-  def edit
-    if @user.is_verified == false
-      redirect_to verify_user_verifications_path(@user)
-    end 
+    # redirect_to url_for(:controller => :verification, :action => :new)
+    
+    # redirect_to root_path
   end
 
   # GET /resource/edit
@@ -65,6 +62,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     params.require(:user).permit(:email, :name, :password, :passord_confrimation)
   end
 
+  def check_verify
+    if user_signed_in? and ! current_user.is_verified
+      redirect_to new_user_verification_path(current_user)
+    end 
+  end
   # You can put the params you want to permit in the empty array.
   # def configure_account_update_params
   #   devise_parameter_sanitizer.for(:account_update) << :attribute

@@ -1,0 +1,48 @@
+<div class="table-responsive">
+  <table class="table" id="users">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Change Type</th>
+        <th>Action</th>
+        <th>Status</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <td>
+            <%= link_to user.email, user %>
+          </td>
+          <td>
+            <%= form_for(user) do |f| %>
+              <% if user.role == "user" %>
+                <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
+                <td>
+                  <button><%= f.submit 'Change Role' %></button>
+                </td>
+              <% else %>
+                Admin
+                <td>Changed</td>
+              <% end %>
+            <% end %>
+          </td>
+          <td>
+            <% if user.is_verified == false %>
+              Not Verified
+              <%= button_to 'Verify', verified_by_admin_user_path(user), method: :put , class: "button" %>
+            <% else %>
+              Verified
+            <% end %>
+          </td>
+          <td>
+            <%= link_to("Delete user", user_path(user), data: { confirm: "Are you sure?" }, method: :delete, class: 'button') unless user == current_user %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
