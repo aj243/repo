@@ -23,4 +23,24 @@ class UserPolicy
     @current_user.admin?
   end
 
+  def verified_by_admin?
+    @current_user.admin?
+  end
+
+  def new?
+    @current_user.admin?
+  end
+
+  def create?
+    @current_user.admin?      
+  end 
+
+  def change_user_role?
+    @current_user.admin?
+  end   
+
+  def edit?
+    @current_user.admin?
+  end
+
 end

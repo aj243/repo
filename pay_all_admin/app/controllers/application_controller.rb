@@ -11,12 +11,6 @@ class ApplicationController < ActionController::Base
 
 	protected
 
-		def check_verify
-      if user_signed_in? and current_user.is_verified == false
-        redirect_to new_verification_path
-      end 
-    end
-
     def configure_permitted_parameters
     	devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:name,:password,:is_verified,:email, :verification_code) }
   	end
@@ -26,14 +20,10 @@ class ApplicationController < ActionController::Base
 	    redirect_to (request.referrer || root_path)
 	  end
 
-
-
 		# def configure_permitted_parameters
 		# 	#devise_parameters_sanitizer.permit(:sign_up) << :name
 		# 	devise_parameter_sanitizer.for(:sign_up) << :name
 		# 	devise_parameter_sanitizer.for(:account_update) << :name
 		# end
 
-
-  
 end

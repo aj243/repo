@@ -30,7 +30,7 @@
 	            </ul>
 	          </li>
 	          <li class="nav-link"><%= link_to "Users", users_path %></li>
-          <li class="nav-link"><%= link_to "Log out", destroy_user_session_path, method: "delete" %></li>
+          <li class="nav-link"><%= link_to "Log out", destroy_user_session_path, method: :delete %></li>
         	<% else %>
 	          <li><%= link_to 'Log In', new_user_session_path %></li>
 	          <li><%= link_to 'Sign Up', new_user_registration_path %></li>
@@ -41,11 +41,9 @@
 	</nav>
 
 	<div class="container">
-	  <% flash.each do |key, value| %>
-	    <div class="alert alert-<%= key %>">
-	      <%= value %>
-	    </div>
-	  <% end %>
+	  <% flash.each do |name, msg| %>
+    	<%= content_tag :div, msg, class: "alert alert-info" %>
+  	<% end %>
 	</div>
 
 	<%= yield :top_content %>

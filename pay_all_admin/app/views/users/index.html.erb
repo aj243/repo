@@ -1,37 +1,59 @@
-<table id="users" class="display">
-  <thead>
-  <tr>
-    <th>Name</th>
-    <th>Email</th>
-    <th>Change Type</th>
-    <th>Action</th>
-    <th>Delete</th>
-  </tr>
-  </thead>
+<div class="container">
+  <div class="jumbotron">
+    <div class="table-responsive">
+      <table class="table" id="users">
+        <thead>
+          <tr>
+            <th>Modal</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Change Type</th>
+            <th>Status</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @users.each do |user| %>
+            <tr>
+              <td>
+                <%= link_to user.name, user_path(user), remote: true, data: { toggle: "modal", target: "#nameModal" } %>
+              </td>
 
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.name %></td>
-        <td>
-          <%= link_to user.email, user %>
-        </td>
-        <td>
-          <%= form_for(user) do |f| %>
-            <%= f.select(:role, User.roles.keys.map {|role| [role.titleize,role]}) %>
-            <td>
-            <button><%= f.submit 'Change Role' %></button>
-            </td>
+              <td><%= user.name %></td>
+              <td>
+                <%= link_to user.email, user %>
+              </td>
+              <% if user == current_user and user.role == 'admin' %>
+                <td>Admin</td>
+              <% else %>
+                <td>          
+                  <%= select_tag 'role', options_for_select([ 'user', 'admin' ], user.role ), { class: 'user-role', id: "user_role_#{user.id}" } %>
+                </td>
+              <% end %>
+              <td class='verify-status'>
+                <% if user.is_verified == false %>
+                  <span id="verify_btn_<%= user.id %>">
+                    Not Verified
+                    <%= link_to 'Verify', verified_by_admin_user_path(user), method: :put, remote: true, class: 'btn-primary btn btn-xs' %>
+                  </span>
+                <% else %>
+                  Verified
+                <% end %>
+              </td>
+              <td>
+                <%= link_to("Edit", edit_user_path(user), class: 'btn btn-info') unless user == current_user %>
+              </td>
+              <td>
+                <%= link_to("Delete user", user_path(user), remote: true, data: { confirm: "Are you sure?" }, method: :delete, class: "btn btn-danger remove_user" ) unless user == current_user %>
+              </td>
+            </tr>
           <% end %>
-        </td>
-        <td>
-          <%= link_to("Delete user", user_path(user), :data => { :confirm => "Are you sure?" }, :method => :delete, :class => 'button') unless user == current_user %>
-        </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+        </tbody>
+      </table>
+    </div>
+    <%= link_to 'Add User', new_user_path, class: 'btn btn-primary' %>
+  </div>
+</div>
 
-<script>
-$('#users').dataTable();
-</script>
+<div id='nameModal' class= 'modal fade' role="dialog" aria-hidden="true"></div>

@@ -1,7 +1,10 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_filter :configure_sign_up_params, only: [:create]
+  
+  before_action :configure_sign_up_params, only: [:create]
+  before_action :check_verify, only: [:edit]
+  skip_before_filter :require_no_authentication
+  before_filter :authenticate_user!
 
-# before_filter :configure_account_update_params, only: [:update]
 
   # GET /resource/sign_up
   def new
@@ -12,21 +15,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def create
     @user = User.new(user_params)
     @user.verification_code = Random.rand(1000..9999)
-    @user.is_verified = false
-    if @user.save
+    if @user.save and @user.is_verified = false
       UserNotifier.send_signup_email(@user).deliver
       redirect_to new_user_verification_path(@user.id)
+    elsif @user.is_verified = true
+        @user.save
+        flash[:success] = 'User Added'
+        redirect_to root_path
     else
       render 'new'
     end
-    # redirect_to url_for(:controller => :verification, :action => :new)
     
-    # redirect_to root_path
   end
 
   # GET /resource/edit
   def edit
-    super
+    current_user
   end
 
   # PUT /resource
@@ -61,6 +65,11 @@ class Users::RegistrationsController < Devise::RegistrationsController
     params.require(:user).permit(:email, :name, :password, :passord_confrimation)
   end
 
+  def check_verify
+    if user_signed_in? and ! current_user.is_verified
+      redirect_to new_user_verification_path(current_user)
+    end 
+  end
   # You can put the params you want to permit in the empty array.
   # def configure_account_update_params
   #   devise_parameter_sanitizer.for(:account_update) << :attribute

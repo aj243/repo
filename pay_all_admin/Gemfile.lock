@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/antillas21/ajax-datatables-rails.git
+  revision: 2dd7de3fea4ef4f7a2a75bb44a0006a1a0002dbf
+  branch: legacy
+  specs:
+    ajax-datatables-rails (0.1.2)
+      railties (>= 3.1)
+
+GIT
   remote: git://github.com/rweng/jquery-datatables-rails.git
   revision: 9eee0a1975b5a22e50bdc73fcca7db7f8a12c143
   specs:
@@ -84,9 +92,6 @@ GEM
       rails-dom-testing (~> 1.0)
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
-    jquery-turbolinks (2.1.0)
-      railties (>= 3.1.0)
-      turbolinks
     json (1.8.3)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
@@ -173,6 +178,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  ajax-datatables-rails!
   bootstrap-sass (= 3.2.0.0)
   byebug
   coffee-rails (~> 4.1.0)
@@ -181,7 +187,6 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-datatables-rails!
   jquery-rails
-  jquery-turbolinks
   mysql2 (>= 0.3.13, < 0.5)
   pundit
   rails (= 4.2.5.1)

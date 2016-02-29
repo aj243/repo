@@ -14,16 +14,16 @@
 ActiveRecord::Schema.define(version: 20160217102003) do
 
   create_table "users", force: :cascade do |t|
-    t.integer  "role",                   limit: 4,   default: 0
     t.string   "verification_code",      limit: 255
     t.string   "name",                   limit: 255
-    t.string   "email",                  limit: 255, default: "", null: false
-    t.string   "encrypted_password",     limit: 255, default: "", null: false
-    t.boolean  "is_verified"
+    t.string   "email",                  limit: 255, default: "",    null: false
+    t.string   "encrypted_password",     limit: 255, default: "",    null: false
+    t.boolean  "is_verified",                        default: false
+    t.integer  "role",                   limit: 4,   default: 0
     t.string   "reset_password_token",   limit: 255
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          limit: 4,   default: 0,  null: false
+    t.integer  "sign_in_count",          limit: 4,   default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip",     limit: 255

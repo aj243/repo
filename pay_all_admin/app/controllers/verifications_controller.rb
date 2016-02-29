@@ -1,16 +1,18 @@
 class VerificationsController < ApplicationController
-		before_action :set_user, only: [:new, :create, :verify]
+	
+	before_action :set_user, only: [:new, :create, :verify]
 
-		def new
-			
-		end
+	def new
+		@user=User.find_by(id: params[:user_id])
+	end
 
-		def create
-    @user.verification_code = Random.rand(1000..9999)
-	  UserNotifier.send_otp_email(@user).deliver
-	  # edit_user_registration_path
-	  return
-		end
+	def create
+  #   @user.verification_code = Random.rand(1000..9999)
+  #   @user.save
+	 #  UserNotifier.send_otp_email(@user).deliver
+	 #  new_user_verification_path
+  # return
+	end
 
 	def verify
     if @user.verification_code == verification_params[:verification_code]
