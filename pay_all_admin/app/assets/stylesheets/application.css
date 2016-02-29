@@ -13,9 +13,3 @@
  *= require dataTables/jquery.dataTables
  *= require_tree .
  */
-.modal-header, h2, .close {
-      background-color: #5cb85c;
-      color:white !important;
-      text-align: center;
-      font-size: 30px;
-  }
